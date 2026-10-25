@@ -3,13 +3,17 @@ import { Header } from './components/Header';
 import { PolicyInputBar } from './components/PolicyInputBar';
 import { DataTypeSelector } from './components/DataTypeSelector';
 import { TrailBoard } from './components/TrailBoard';
+import { EvidenceDrawer } from './components/EvidenceDrawer';
+import { NecessityCard } from './components/NecessityCard';
+import { RightsPanel } from './components/RightsPanel';
+import { PolicyTextInspector } from './components/PolicyTextInspector';
 import { usePolicyAnalysis } from './hooks/usePolicyAnalysis';
 import { TrailStage } from './types/policy';
 import { Shield, Sparkles } from 'lucide-react';
 
 export default function App() {
   const {
-    text: _text,
+    text,
     title,
     analysisResult,
     selectedTypeId,
@@ -20,9 +24,20 @@ export default function App() {
   } = usePolicyAnalysis();
 
   const [selectedStageForEvidence, setSelectedStageForEvidence] = useState<TrailStage | null>(null);
+  const [isInspectorOpen, setIsInspectorOpen] = useState<boolean>(false);
+  const [inspectorTargetQuote, setInspectorTargetQuote] = useState<string | null>(null);
 
   const handleOpenEvidence = (stage: TrailStage) => {
     setSelectedStageForEvidence(stage);
+  };
+
+  const handleCloseEvidence = () => {
+    setSelectedStageForEvidence(null);
+  };
+
+  const handleJumpToFullText = (quote: string) => {
+    setInspectorTargetQuote(quote);
+    setIsInspectorOpen(true);
   };
 
   return (
@@ -30,11 +45,14 @@ export default function App() {
       <Header
         activePolicyTitle={title}
         wordCount={analysisResult.wordCount}
-        onOpenInspector={() => alert("Full policy text inspector will open in the next panel.")}
+        onOpenInspector={() => {
+          setInspectorTargetQuote(null);
+          setIsInspectorOpen(true);
+        }}
       />
 
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Intro Banner */}
+        {/* Intro Hero Section */}
         <div className="mb-8">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-950/60 border border-cyan-700/40 text-cyan-300 text-xs font-medium mb-3">
             <Sparkles className="w-3.5 h-3.5" />
@@ -48,21 +66,21 @@ export default function App() {
           </p>
         </div>
 
-        {/* Input Bar */}
+        {/* Policy Ingestion Surface */}
         <PolicyInputBar
           onAnalyzeText={setPolicy}
           isAnalyzing={isAnalyzing}
           currentTitle={title}
         />
 
-        {/* Discovered Data Types Selector */}
+        {/* Stage 1: Data Type Selection Matrix */}
         <DataTypeSelector
           dataTypes={analysisResult.discoveredDataTypes}
           selectedId={selectedTypeId}
           onSelect={setSelectedTypeId}
         />
 
-        {/* Interactive 4-Stage Trail Board */}
+        {/* Stage 2: Central 4-Stage Interactive Trail Board */}
         {activeTrail && (
           <TrailBoard
             trail={activeTrail}
@@ -70,13 +88,48 @@ export default function App() {
             activeStageKey={selectedStageForEvidence?.stage}
           />
         )}
+
+        {/* Stage 3: Analytical Necessity & Uncertainty Card */}
+        {activeTrail && (
+          <NecessityCard trail={activeTrail} />
+        )}
+
+        {/* Stage 4: Grievance Redressal & Data Rights Panel */}
+        <RightsPanel
+          analysis={analysisResult}
+          onJumpToQuote={handleJumpToFullText}
+        />
       </main>
 
+      {/* Slide-out Verbatim Evidence Drawer */}
+      {activeTrail && (
+        <EvidenceDrawer
+          stage={selectedStageForEvidence}
+          trail={activeTrail}
+          onClose={handleCloseEvidence}
+          onJumpToFullText={handleJumpToFullText}
+        />
+      )}
+
+      {/* Full Policy Text Inspector Modal */}
+      <PolicyTextInspector
+        isOpen={isInspectorOpen}
+        onClose={() => setIsInspectorOpen(false)}
+        rawText={text}
+        policyTitle={title}
+        targetQuote={inspectorTargetQuote}
+      />
+
       <footer className="border-t border-slate-900 bg-[#090D16] py-6 text-center text-xs text-slate-500">
-        <p className="flex items-center justify-center gap-2">
-          <Shield className="w-3.5 h-3.5 text-cyan-400" />
-          <span>DataTrail • Built for Devpost Build With AI: Basics • Evaluates claims, not runtime behavior</span>
-        </p>
+        <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
+          <p className="flex items-center gap-2">
+            <Shield className="w-3.5 h-3.5 text-cyan-400" />
+            <span>DataTrail • Built with AI for Devpost Build With AI: Basics</span>
+          </p>
+          <p className="font-mono text-[11px] text-slate-400">
+            Claims, not runtime behavior • Zero quote hallucinations guarantee
+          </p>
+        </div>
       </footer>
     </div>
   );
