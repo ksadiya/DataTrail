@@ -19,7 +19,7 @@ Build mode: fast
   Learner check: Open the app, switch between sample policies, and confirm the text updates with full policy clauses.
   Commit: `Scaffold project and implement policy input bar with real samples`
 
-- [ ] **2. Deterministic policy analyzer engine with category discovery and quote verifier**
+- [x] **2. Deterministic policy analyzer engine with category discovery and quote verifier**
   Becomes usable: The semantic policy analyzer parses any input text, extracts clauses, discovers personal data categories (Geolocation, Device IDs, Contacts, etc.), classifies Collect/Use/Share/Keep stages with honesty badges (stated, vague, not found), and validates quote substrings against source text.
   Why now: Delivers the core intelligence kernel that prevents quote hallucination and powers the entire visual trail.
   PRD ref: `prd.md > Features and Behavior (2. Intelligent Data Type Discovery, 3. The Four-Stage Trail, 4. Verbatim Evidence)`
@@ -51,7 +51,7 @@ Build mode: fast
 
 ## Hands-on Checkpoints
 
-- [ ] Early usable behavior explored — Slice 2 (Category discovery & verified quote extraction)
+- [x] Early usable behavior explored — Slice 2 (Category discovery & verified quote extraction)
 - [ ] Final kick-the-tires exploration and feedback completed
 
 ## Final Review
