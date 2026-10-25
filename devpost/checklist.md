@@ -9,7 +9,7 @@ Build mode: fast
 
 ## Slices
 
-- [ ] **1. Project scaffold and policy input bar with real samples**
+- [x] **1. Project scaffold and policy input bar with real samples**
   Becomes usable: A running Vite + React + Tailwind CSS app showing the DataTrail header and policy input bar with selectable real India-relevant samples (Swiggy, Zomato, WhatsApp), custom text paste with live word count, and file upload.
   Why now: Proves the whole foundation and data ingestion pipeline end to end so all subsequent trail slices have real policy text to work with.
   PRD ref: `prd.md > The Core Journey` (step 1), `prd.md > Screens and Layout`
