@@ -29,7 +29,7 @@ Build mode: fast
   Learner check: Click "Investigate Policy" on a sample, see discovered data type pills, and observe how each type lists its stage completion.
   Commit: `Add deterministic policy analyzer engine and data type discovery`
 
-- [ ] **3. Interactive 4-Stage Trail board with animated conduits and honesty badges**
+- [x] **3. Interactive 4-Stage Trail board with animated conduits and honesty badges**
   Becomes usable: The central interactive visualization of Collect → Use → Share → Keep for the selected data type, complete with honesty badges (Stated, Vague, Not Found), findings, verbatim quote previews, and animated trail connectors.
   Why now: Implements the central unique kernel of DataTrail that transforms static text into an interactive, followable personal data journey.
   PRD ref: `prd.md > Features and Behavior (3. The Four-Stage Trail)`, `prd.md > The Core Journey` (steps 3-4)
