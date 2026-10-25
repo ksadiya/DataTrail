@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DataTrail — Technical Specification</title>
+  <style>
+    :root {
+      --bg: #090D16;
+      --card-bg: #0F172A;
+      --card-border: #1E293B;
+      --accent: #06B6D4;
+      --accent-stated: #10B981;
+      --accent-vague: #F59E0B;
+      --accent-missing: #64748B;
+      --accent-interpret: #8B5CF6;
+      --text: #F1F5F9;
+      --text-muted: #94A3B8;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+      line-height: 1.6;
+      padding: 40px 20px;
+    }
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    header {
+      margin-bottom: 36px;
+      border-bottom: 1px solid var(--card-border);
+      padding-bottom: 24px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 9999px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      background: rgba(6, 182, 212, 0.15);
+      color: var(--accent);
+      border: 1px solid rgba(6, 182, 212, 0.3);
+      margin-bottom: 12px;
+    }
+    h1 {
+      font-size: 32px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+    }
+    p.lead {
+      color: var(--text-muted);
+      font-size: 18px;
+      margin-bottom: 16px;
+    }
+    .diagram-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 32px;
+    }
+    .diagram-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 16px;
+    }
+    .arch-svg {
+      width: 100%;
+      height: auto;
+      max-height: 260px;
+    }
+    .interactive-tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+    .tab-btn {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      color: var(--text-muted);
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .tab-btn.active, .tab-btn:hover {
+      background: rgba(6, 182, 212, 0.12);
+      border-color: var(--accent);
+      color: #fff;
+    }
+    .section-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 28px;
+      margin-bottom: 24px;
+      display: none;
+    }
+    .section-card.visible {
+      display: block;
+    }
+    h2 {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      color: #fff;
+    }
+    h3 {
+      font-size: 16px;
+      font-weight: 600;
+      margin: 20px 0 8px;
+      color: var(--accent);
+    }
+    ul, ol {
+      padding-left: 20px;
+      margin-bottom: 16px;
+    }
+    li {
+      margin-bottom: 8px;
+      color: #CBD5E1;
+    }
+    pre {
+      background: #030712;
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 16px;
+      overflow-x: auto;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 13px;
+      color: #E2E8F0;
+      margin: 16px 0;
+    }
+    .callout {
+      background: rgba(15, 23, 42, 0.8);
+      border-left: 4px solid var(--accent);
+      padding: 16px;
+      border-radius: 0 8px 8px 0;
+      margin: 16px 0;
+      color: #CBD5E1;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="badge">Approved Technical Spec • Build With AI: Basics</div>
+      <h1>DataTrail — Technical Blueprint</h1>
+      <p class="lead">Deterministic client-side privacy intelligence engine rendering 4-stage data journeys with 100% verified verbatim quotations.</p>
+    </header>
+
+    <div class="diagram-card">
+      <div class="diagram-title">System Architecture & Component Flow</div>
+      <svg class="arch-svg" viewBox="0 0 900 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Input Layer -->
+        <rect x="20" y="40" width="160" height="140" rx="8" fill="#1E293B" stroke="#06B6D4" stroke-width="2"/>
+        <text x="100" y="70" fill="#06B6D4" font-weight="700" font-size="13" text-anchor="middle">Input Sources</text>
+        <text x="100" y="100" fill="#CBD5E1" font-size="11" text-anchor="middle">• Curated Samples</text>
+        <text x="100" y="125" fill="#CBD5E1" font-size="11" text-anchor="middle">• Custom Paste</text>
+        <text x="100" y="150" fill="#CBD5E1" font-size="11" text-anchor="middle">• .txt Upload / URL</text>
+
+        <!-- Arrow 1 -->
+        <path d="M180 110 H240" stroke="#06B6D4" stroke-width="2" marker-end="url(#arrow)"/>
+
+        <!-- Engine Layer -->
+        <rect x="240" y="30" width="220" height="160" rx="8" fill="#1E293B" stroke="#10B981" stroke-width="2"/>
+        <text x="350" y="60" fill="#10B981" font-weight="700" font-size="13" text-anchor="middle">PolicyAnalyzerEngine</text>
+        <text x="350" y="90" fill="#CBD5E1" font-size="11" text-anchor="middle">• Sentence Tokenizer</text>
+        <text x="350" y="115" fill="#CBD5E1" font-size="11" text-anchor="middle">• Category Classifier</text>
+        <text x="350" y="140" fill="#CBD5E1" font-size="11" text-anchor="middle">• Vagueness & Hedge Evaluator</text>
+        <text x="350" y="165" fill="#CBD5E1" font-size="11" text-anchor="middle">• Quote Substring Verifier</text>
+
+        <!-- Arrow 2 -->
+        <path d="M460 110 H520" stroke="#10B981" stroke-width="2"/>
+
+        <!-- Trail State Layer -->
+        <rect x="520" y="30" width="180" height="160" rx="8" fill="#1E293B" stroke="#F59E0B" stroke-width="2"/>
+        <text x="610" y="60" fill="#F59E0B" font-weight="700" font-size="13" text-anchor="middle">Trail Data Model</text>
+        <text x="610" y="90" fill="#CBD5E1" font-size="11" text-anchor="middle">• 4 Stages (C-U-S-K)</text>
+        <text x="610" y="115" fill="#CBD5E1" font-size="11" text-anchor="middle">• Honesty Badges</text>
+        <text x="610" y="140" fill="#CBD5E1" font-size="11" text-anchor="middle">• Verbatim Quotes</text>
+        <text x="610" y="165" fill="#CBD5E1" font-size="11" text-anchor="middle">• Necessity Notes</text>
+
+        <!-- Arrow 3 -->
+        <path d="M700 110 H740" stroke="#F59E0B" stroke-width="2"/>
+
+        <!-- UI Presentation Layer -->
+        <rect x="740" y="40" width="140" height="140" rx="8" fill="#1E293B" stroke="#8B5CF6" stroke-width="2"/>
+        <text x="810" y="70" fill="#8B5CF6" font-weight="700" font-size="13" text-anchor="middle">UI Views</text>
+        <text x="810" y="100" fill="#CBD5E1" font-size="11" text-anchor="middle">• TrailBoard</text>
+        <text x="810" y="125" fill="#CBD5E1" font-size="11" text-anchor="middle">• EvidenceDrawer</text>
+        <text x="810" y="150" fill="#CBD5E1" font-size="11" text-anchor="middle">• RightsPanel</text>
+      </svg>
+    </div>
+
+    <div class="interactive-tabs">
+      <button class="tab-btn active" onclick="showTab('engine')">1. Architecture & Engine</button>
+      <button class="tab-btn" onclick="showTab('stack')">2. Stack & Rationale</button>
+      <button class="tab-btn" onclick="showTab('datamodel')">3. Data Model</button>
+      <button class="tab-btn" onclick="showTab('files')">4. File Structure</button>
+      <button class="tab-btn" onclick="showTab('verification')">5. How to Run & Verify</button>
+    </div>
+
+    <!-- TAB 1: ENGINE -->
+    <div id="tab-engine" class="section-card visible">
+      <h2>Architecture: Deterministic Policy Intelligence</h2>
+      <p>DataTrail operates entirely client-side, eliminating external server dependencies and guaranteeing zero quote hallucinations:</p>
+      <ul>
+        <li><strong>Sentence & Clause Tokenization:</strong> Divides legal policies into individual claims while respecting abbreviations, section headers, and lists.</li>
+        <li><strong>Category Matcher:</strong> Uses semantic keyword matrices to identify whether the policy collects Geolocation, Device IDs, Contacts, Financial info, Biometrics, or Activity Logs.</li>
+        <li><strong>Four-Stage Lifecycle Classifier:</strong> Evaluates every clause against the 4 lifecycle steps: Collect, Use, Share, and Keep.</li>
+        <li><strong>Quote Verifier:</strong> Verifies that every extracted quote exists verbatim in the raw input text.</li>
+        <li><strong>Hedge & Vagueness Detector:</strong> Highlights language that expands corporate discretion without explicit boundaries.</li>
+      </ul>
+    </div>
+
+    <!-- TAB 2: STACK -->
+    <div id="tab-stack" class="section-card">
+      <h2>Tech Stack</h2>
+      <ul>
+        <li><strong>Vite 6 + React 19 + TypeScript:</strong> Fast bundling, strict typing, responsive state management.</li>
+        <li><strong>Tailwind CSS:</strong> Obsidian dark theme, customizable utility classes.</li>
+        <li><strong>Lucide React:</strong> Consistent, modern iconography for privacy indicators and navigation.</li>
+        <li><strong>Vitest:</strong> Unit testing for deterministic clause parsing and quote validation.</li>
+      </ul>
+    </div>
+
+    <!-- TAB 3: DATA MODEL -->
+    <div id="tab-datamodel" class="section-card">
+      <h2>Data Model Schema</h2>
+      <pre>
+export type HonestyStatus = 'stated' | 'vague' | 'not_found' | 'interpreted';
+export type StageName = 'collect' | 'use' | 'share' | 'keep';
+
+export interface VerbatimEvidence {
+  quote: string;
+  sourceSection?: string;
+  hedgesFound?: string[];
+  lineNumber?: number;
+}
+
+export interface TrailStage {
+  stage: StageName;
+  title: string;
+  status: HonestyStatus;
+  headline: string;
+  summary: string;
+  evidence: VerbatimEvidence[];
+  vaguenessReason?: string;
+}
+
+export interface DataTypeTrail {
+  id: string;
+  label: string;
+  iconName: string;
+  description: string;
+  stages: Record&lt;StageName, TrailStage&gt;;
+  necessityNote: {
+    coreUtilityRelation: string;
+    proportionalityAssessment: string;
+    status: 'proportional' | 'excessive_scope' | 'vague_justification';
+  };
+}
+      </pre>
+    </div>
+
+    <!-- TAB 4: FILE STRUCTURE -->
+    <div id="tab-files" class="section-card">
+      <h2>File Structure</h2>
+      <pre>
+datatrail/
+├── index.html
+├── package.json
+├── vite.config.ts
+├── tailwind.config.js
+├── src/
+│   ├── main.tsx
+│   ├── App.tsx
+│   ├── index.css
+│   ├── types/policy.ts
+│   ├── data/samples.ts
+│   ├── engine/
+│   │   ├── analyzer.ts
+│   │   ├── patterns.ts
+│   │   ├── quoteVerifier.ts
+│   │   └── rightsExtractor.ts
+│   ├── components/
+│   │   ├── Header.tsx
+│   │   ├── PolicyInputBar.tsx
+│   │   ├── DataTypeSelector.tsx
+│   │   ├── TrailBoard.tsx
+│   │   ├── TrailNodeCard.tsx
+│   │   ├── EvidenceDrawer.tsx
+│   │   ├── NecessityCard.tsx
+│   │   ├── RightsPanel.tsx
+│   │   └── PolicyTextInspector.tsx
+│   └── hooks/usePolicyAnalysis.ts
+└── devpost/
+    ├── scope.md
+    ├── prd.md
+    ├── prd.html
+    ├── spec.md
+    ├── spec.html
+    └── checklist.md
+      </pre>
+    </div>
+
+    <!-- TAB 5: VERIFICATION -->
+    <div id="tab-verification" class="section-card">
+      <h2>Where It Runs & Verification</h2>
+      <p>Start command:</p>
+      <pre>
+npm install
+npm run dev
+      </pre>
+      <p>Open <code>http://localhost:5173</code> in your browser. Follow the 4-stage trail from Collect to Keep with verifiable policy quotes.</p>
+    </div>
+  </div>
+
+  <script>
+    function showTab(id) {
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      document.querySelectorAll('.section-card').forEach(card => card.classList.remove('visible'));
+      
+      event.target.classList.add('active');
+      const target = document.getElementById('tab-' + id);
+      if (target) target.classList.add('visible');
+    }
+  </script>
+</body>
+</html>

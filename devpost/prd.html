@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DataTrail — Product Requirements (PRD)</title>
+  <style>
+    :root {
+      --bg: #090D16;
+      --card-bg: #0F172A;
+      --card-border: #1E293B;
+      --accent: #06B6D4;
+      --accent-stated: #10B981;
+      --accent-vague: #F59E0B;
+      --accent-missing: #64748B;
+      --accent-interpret: #8B5CF6;
+      --text: #F1F5F9;
+      --text-muted: #94A3B8;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+      line-height: 1.6;
+      padding: 40px 20px;
+    }
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    header {
+      margin-bottom: 40px;
+      border-bottom: 1px solid var(--card-border);
+      padding-bottom: 24px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 9999px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      background: rgba(6, 182, 212, 0.15);
+      color: var(--accent);
+      border: 1px solid rgba(6, 182, 212, 0.3);
+      margin-bottom: 12px;
+    }
+    h1 {
+      font-size: 32px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+    }
+    p.lead {
+      color: var(--text-muted);
+      font-size: 18px;
+      margin-bottom: 16px;
+    }
+    .diagram-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 32px;
+    }
+    .diagram-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 16px;
+    }
+    .journey-svg {
+      width: 100%;
+      height: auto;
+      max-height: 220px;
+    }
+    .interactive-tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+    .tab-btn {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      color: var(--text-muted);
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .tab-btn.active, .tab-btn:hover {
+      background: rgba(6, 182, 212, 0.12);
+      border-color: var(--accent);
+      color: #fff;
+    }
+    .section-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 28px;
+      margin-bottom: 24px;
+      display: none;
+    }
+    .section-card.visible {
+      display: block;
+    }
+    h2 {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      color: #fff;
+    }
+    h3 {
+      font-size: 16px;
+      font-weight: 600;
+      margin: 20px 0 8px;
+      color: var(--accent);
+    }
+    ul, ol {
+      padding-left: 20px;
+      margin-bottom: 16px;
+    }
+    li {
+      margin-bottom: 8px;
+      color: #CBD5E1;
+    }
+    .chip {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 700;
+      margin-right: 6px;
+    }
+    .chip-stated { background: rgba(16, 185, 129, 0.2); color: #34D399; border: 1px solid rgba(16, 185, 129, 0.4); }
+    .chip-vague { background: rgba(245, 158, 11, 0.2); color: #FBBF24; border: 1px solid rgba(245, 158, 11, 0.4); }
+    .chip-missing { background: rgba(100, 116, 139, 0.2); color: #94A3B8; border: 1px solid rgba(100, 116, 139, 0.4); }
+    .chip-interpret { background: rgba(139, 92, 246, 0.2); color: #A78BFA; border: 1px solid rgba(139, 92, 246, 0.4); }
+    .callout {
+      background: rgba(15, 23, 42, 0.8);
+      border-left: 4px solid var(--accent);
+      padding: 16px;
+      border-radius: 0 8px 8px 0;
+      margin: 16px 0;
+      color: #CBD5E1;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="badge">Approved PRD • Build With AI: Basics</div>
+      <h1>DataTrail — Product Requirements</h1>
+      <p class="lead">An interactive privacy-intelligence web application that turns real privacy policies into an evidence-backed personal data journey: <strong>COLLECT → USE → SHARE → KEEP</strong>.</p>
+    </header>
+
+    <div class="diagram-card">
+      <div class="diagram-title">System Journey & Data Movement Architecture</div>
+      <svg class="journey-svg" viewBox="0 0 900 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Connecting Line -->
+        <line x1="80" y1="80" x2="820" y2="80" stroke="#1E293B" stroke-width="4" stroke-dasharray="6 6"/>
+        <line x1="80" y1="80" x2="620" y2="80" stroke="url(#paint0_linear)" stroke-width="4"/>
+
+        <!-- Defs -->
+        <defs>
+          <linearGradient id="paint0_linear" x1="80" y1="80" x2="620" y2="80" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#06B6D4"/>
+            <stop offset="0.33" stop-color="#10B981"/>
+            <stop offset="0.66" stop-color="#F59E0B"/>
+            <stop offset="1" stop-color="#8B5CF6"/>
+          </linearGradient>
+        </defs>
+
+        <!-- Node 1: Collect -->
+        <g transform="translate(80, 80)">
+          <circle r="32" fill="#0F172A" stroke="#10B981" stroke-width="3"/>
+          <text text-anchor="middle" dy="5" fill="#34D399" font-weight="700" font-size="12">COLLECT</text>
+          <text text-anchor="middle" dy="48" fill="#94A3B8" font-size="11">How it enters</text>
+        </g>
+
+        <!-- Node 2: Use -->
+        <g transform="translate(280, 80)">
+          <circle r="32" fill="#0F172A" stroke="#06B6D4" stroke-width="3"/>
+          <text text-anchor="middle" dy="5" fill="#22D3EE" font-weight="700" font-size="12">USE</text>
+          <text text-anchor="middle" dy="48" fill="#94A3B8" font-size="11">Stated purposes</text>
+        </g>
+
+        <!-- Node 3: Share -->
+        <g transform="translate(500, 80)">
+          <circle r="32" fill="#0F172A" stroke="#F59E0B" stroke-width="3"/>
+          <text text-anchor="middle" dy="5" fill="#FBBF24" font-weight="700" font-size="12">SHARE</text>
+          <text text-anchor="middle" dy="48" fill="#94A3B8" font-size="11">3rd party disclosure</text>
+        </g>
+
+        <!-- Node 4: Keep -->
+        <g transform="translate(720, 80)">
+          <circle r="32" fill="#0F172A" stroke="#8B5CF6" stroke-width="3"/>
+          <text text-anchor="middle" dy="5" fill="#A78BFA" font-weight="700" font-size="12">KEEP</text>
+          <text text-anchor="middle" dy="48" fill="#94A3B8" font-size="11">Retention & deletion</text>
+        </g>
+      </svg>
+    </div>
+
+    <div class="interactive-tabs">
+      <button class="tab-btn active" onclick="showTab('journey')">1. Core Journey</button>
+      <button class="tab-btn" onclick="showTab('labels')">2. Honesty Labels</button>
+      <button class="tab-btn" onclick="showTab('features')">3. Features & Slices</button>
+      <button class="tab-btn" onclick="showTab('boundaries')">4. Boundaries & Edge Cases</button>
+      <button class="tab-btn" onclick="showTab('decisions')">5. Product Decisions</button>
+    </div>
+
+    <!-- TAB 1: JOURNEY -->
+    <div id="tab-journey" class="section-card visible">
+      <h2>The Core User Journey</h2>
+      <ol>
+        <li><strong>Arrival & Policy Choice:</strong> User accesses the application and picks a real India-relevant sample (Swiggy, Zomato, WhatsApp), pastes their own custom policy, or uploads a document.</li>
+        <li><strong>Automated Analysis:</strong> The deterministic policy analyzer engine scans the text, categorizes clauses, and surfaces detected data types (e.g. Precise Location, Contact List, Biometrics, Device IDs).</li>
+        <li><strong>Category Selection:</strong> User selects one data type to inspect its individual data lifecycle.</li>
+        <li><strong>Interactive 4-Stage Trail:</strong> Inspects the four stages (Collect → Use → Share → Keep), viewing verbatim policy quotes and honest confidence ratings.</li>
+        <li><strong>Evidence Deep Dive:</strong> Clicks into any stage to open the side inspector, highlighting ambiguous hedges and exact policy sentences.</li>
+        <li><strong>Necessity & Rights:</strong> Reads the interpreted necessity evaluation and checks stated grievance officer / opt-out contact information.</li>
+      </ol>
+      <div class="callout">
+        <strong>The Core Test:</strong> When a user switches policies or data types, the entire trail updates dynamically with verified verbatim quotes from that exact policy. No hardcoded mockups.
+      </div>
+    </div>
+
+    <!-- TAB 2: LABELS -->
+    <div id="tab-labels" class="section-card">
+      <h2>Honesty Classification Schema</h2>
+      <p style="margin-bottom: 16px; color: var(--text-muted);">DataTrail separates direct legal claims from inferences and highlights omission:</p>
+      <ul>
+        <li><span class="chip chip-stated">STATED</span> <strong>Direct Claim:</strong> The policy explicitly states this action with unambiguous language and verbatim quotations.</li>
+        <li><span class="chip chip-vague">VAGUE</span> <strong>Ambiguous Clause:</strong> The policy uses legal qualifiers like "including but not limited to", "may share with partners", or "for internal enhancements" without specific boundaries.</li>
+        <li><span class="chip chip-missing">NOT FOUND</span> <strong>Omission / Silence:</strong> The policy completely fails to disclose information for this stage (e.g. no retention schedule or no listed third parties).</li>
+        <li><span class="chip chip-interpret">INTERPRETED</span> <strong>Analytical Assessment:</strong> Evaluates functional necessity vs. broad data harvesting. Clearly marked as non-policy interpretation.</li>
+      </ul>
+    </div>
+
+    <!-- TAB 3: FEATURES -->
+    <div id="tab-features" class="section-card">
+      <h2>Key Features & Proof of Concept Slices</h2>
+      <h3>1. Multi-Input Policy Ingestion</h3>
+      <p>Supports real pre-loaded policies, raw clipboard paste, plain text file upload, and URL fetching with honest error boundaries.</p>
+
+      <h3>2. Dynamic Data Category Discovery</h3>
+      <p>Extracts personal data mentions directly from the uploaded text rather than forcing a pre-configured template.</p>
+
+      <h3>3. Verbatim Evidence Drawer</h3>
+      <p>Displays the exact sentences from the policy with zero generative hallucinations.</p>
+
+      <h3>4. Rights & Contact Extractor</h3>
+      <p>Extracts Grievance Officer contacts, DPO email addresses, and deletion instructions.</p>
+    </div>
+
+    <!-- TAB 4: BOUNDARIES -->
+    <div id="tab-boundaries" class="section-card">
+      <h2>States and Boundaries</h2>
+      <ul>
+        <li><strong>Empty Input State:</strong> Clear visual prompts explaining how to choose a sample or paste text.</li>
+        <li><strong>Short / Invalid Text:</strong> Helpful alert if input text has fewer than 50 words or lacks privacy clauses.</li>
+        <li><strong>URL Fetch Fallback:</strong> When client-side cross-origin fetch is blocked by CORS or paywalls, DataTrail honestly reports the network block and provides an instant 1-click paste fallback.</li>
+        <li><strong>Runtime Honesty:</strong> Clear disclaimer that DataTrail analyzes legal representations, not real-time network traffic.</li>
+      </ul>
+    </div>
+
+    <!-- TAB 5: DECISIONS -->
+    <div id="tab-decisions" class="section-card">
+      <h2>Consequential Product Decisions</h2>
+      <ul>
+        <li><strong>No aggregate score:</strong> A score hides evidence and provides false security. DataTrail provides granular transparency.</li>
+        <li><strong>No chatbot:</strong> A conversational agent buries findings. The 4-stage map provides immediate structural understanding.</li>
+        <li><strong>Deterministic extraction:</strong> Built on grounded NLP sentence matching to prevent quote fabrication.</li>
+      </ul>
+    </div>
+  </div>
+
+  <script>
+    function showTab(id) {
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      document.querySelectorAll('.section-card').forEach(card => card.classList.remove('visible'));
+      
+      event.target.classList.add('active');
+      const target = document.getElementById('tab-' + id);
+      if (target) target.classList.add('visible');
+    }
+  </script>
+</body>
+</html>
