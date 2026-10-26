@@ -48,6 +48,8 @@ export interface PolicyAnalysisResult {
   paragraphCount: number;
   sentenceCount: number;
   analyzedAt: string;
+  isValidPolicy: boolean;
+  emptyReason?: string;
   discoveredDataTypes: DataTypeTrail[];
   rightsAndContacts: {
     grievanceOfficerFound: boolean;

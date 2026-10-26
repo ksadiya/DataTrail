@@ -64,8 +64,6 @@ export const PolicyInputBar: React.FC<PolicyInputBarProps> = ({
     setIsFetchingUrl(true);
 
     try {
-      // In browser environment, cross-origin fetch is subject to CORS restrictions
-      // We attempt a fetch, and honestly explain CORS if blocked.
       const response = await fetch(urlInput.trim(), {
         headers: { 'Accept': 'text/html, text/plain' }
       });
@@ -75,8 +73,8 @@ export const PolicyInputBar: React.FC<PolicyInputBarProps> = ({
       }
 
       const htmlOrText = await response.text();
-      // Strip basic HTML tags if it returned HTML
-      const cleaned = htmlOrText.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
+      const cleaned = htmlOrText
+        .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
         .replace(/<style\b[^<]*(?:(?!<\/style>)<[^<]*)*<\/style>/gi, '')
         .replace(/<[^>]+>/g, ' ')
         .replace(/\s+/g, ' ')
@@ -99,7 +97,7 @@ export const PolicyInputBar: React.FC<PolicyInputBarProps> = ({
     } catch (err: unknown) {
       const message = err instanceof Error ? err.message : 'Cross-origin request failed';
       setUrlError(
-        `Unable to fetch directly from browser due to remote domain CORS protection or paywall (${message}). We recommend copying the text and pasting it into the "Paste Custom Text" tab.`
+        `Unable to fetch directly from browser due to remote domain CORS protection or Cloudflare shielding (${message}). Please copy the policy text directly and paste it into the "Paste Policy Text" tab.`
       );
     } finally {
       setIsFetchingUrl(false);
@@ -107,65 +105,65 @@ export const PolicyInputBar: React.FC<PolicyInputBarProps> = ({
   };
 
   return (
-    <div className="bg-[#0F172A] border border-[#1E293B] rounded-2xl p-5 shadow-xl shadow-black/40 mb-8">
+    <div className="bg-[#140C16] border border-[#2E1B33] rounded-3xl p-5 sm:p-6 shadow-2xl shadow-black/60 mb-8 transition-colors">
       {/* Top tabs */}
-      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[#1E293B] pb-4 mb-5">
-        <div className="flex items-center gap-1.5 p-1 bg-[#090D16] rounded-xl border border-slate-800">
+      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[#26152B] pb-4 mb-5">
+        <div className="flex items-center gap-1.5 p-1 bg-[#0A060C] rounded-2xl border border-[#2B1830]">
           <button
             onClick={() => setActiveTab('samples')}
-            className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-semibold transition ${
+            className={`flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-semibold transition ${
               activeTab === 'samples'
-                ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 shadow-sm'
-                : 'text-slate-400 hover:text-slate-200'
+                ? 'bg-burgundy-900/80 text-cream-100 border border-burgundy-600/70 shadow-sm'
+                : 'text-cream-400/80 hover:text-cream-100'
             }`}
           >
-            <Sparkles className="w-3.5 h-3.5" />
-            <span>Real India Samples</span>
+            <Sparkles className="w-3.5 h-3.5 text-teal-300" />
+            <span>Real Policy Samples</span>
           </button>
 
           <button
             onClick={() => setActiveTab('paste')}
-            className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-semibold transition ${
+            className={`flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-semibold transition ${
               activeTab === 'paste'
-                ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 shadow-sm'
-                : 'text-slate-400 hover:text-slate-200'
+                ? 'bg-burgundy-900/80 text-cream-100 border border-burgundy-600/70 shadow-sm'
+                : 'text-cream-400/80 hover:text-cream-100'
             }`}
           >
-            <Clipboard className="w-3.5 h-3.5" />
+            <Clipboard className="w-3.5 h-3.5 text-teal-300" />
             <span>Paste Policy Text</span>
             {customText.length > 0 && (
-              <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
+              <span className="w-2 h-2 rounded-full bg-teal-400 animate-pulse"></span>
             )}
           </button>
 
           <button
             onClick={() => setActiveTab('upload')}
-            className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-semibold transition ${
+            className={`flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-semibold transition ${
               activeTab === 'upload'
-                ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 shadow-sm'
-                : 'text-slate-400 hover:text-slate-200'
+                ? 'bg-burgundy-900/80 text-cream-100 border border-burgundy-600/70 shadow-sm'
+                : 'text-cream-400/80 hover:text-cream-100'
             }`}
           >
-            <Upload className="w-3.5 h-3.5" />
+            <Upload className="w-3.5 h-3.5 text-teal-300" />
             <span>Upload .txt</span>
           </button>
 
           <button
             onClick={() => setActiveTab('url')}
-            className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-semibold transition ${
+            className={`flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-semibold transition ${
               activeTab === 'url'
-                ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 shadow-sm'
-                : 'text-slate-400 hover:text-slate-200'
+                ? 'bg-burgundy-900/80 text-cream-100 border border-burgundy-600/70 shadow-sm'
+                : 'text-cream-400/80 hover:text-cream-100'
             }`}
           >
-            <Globe className="w-3.5 h-3.5" />
+            <Globe className="w-3.5 h-3.5 text-teal-300" />
             <span>Fetch URL</span>
           </button>
         </div>
 
-        <div className="text-xs text-slate-400 flex items-center gap-1.5">
-          <span>Active Investigation:</span>
-          <span className="font-semibold text-cyan-300 bg-cyan-950/60 px-2.5 py-1 rounded-md border border-cyan-800/50">
+        <div className="text-xs text-cream-400/80 flex items-center gap-2 font-mono">
+          <span className="text-cream-500">Active Policy:</span>
+          <span className="font-semibold text-teal-300 bg-[#1D1222] px-3 py-1 rounded-lg border border-teal-800/40">
             {currentTitle || 'No policy loaded'}
           </span>
         </div>
@@ -174,8 +172,9 @@ export const PolicyInputBar: React.FC<PolicyInputBarProps> = ({
       {/* Tab 1: Real India Samples */}
       {activeTab === 'samples' && (
         <div>
-          <div className="text-xs text-slate-400 mb-3">
-            Select a verified in-repo privacy policy to inspect how real platforms declare data movement under Indian & global privacy norms:
+          <div className="text-xs text-cream-400/80 mb-3.5 flex items-center justify-between">
+            <span>Select an authentic consumer tech policy to inspect genuine data movement claims:</span>
+            <span className="text-[11px] font-mono text-teal-400">All samples pass through the same analyzer</span>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5">
             {SAMPLE_POLICIES.map((sample) => {
@@ -184,31 +183,33 @@ export const PolicyInputBar: React.FC<PolicyInputBarProps> = ({
                 <div
                   key={sample.id}
                   onClick={() => handleSelectSample(sample)}
-                  className={`cursor-pointer rounded-xl p-4 border text-left transition relative group ${
+                  className={`cursor-pointer rounded-2xl p-4 border text-left transition-all relative group ${
                     isSelected
-                      ? 'bg-cyan-950/30 border-cyan-500/60 shadow-lg shadow-cyan-950/50 ring-1 ring-cyan-500/50'
-                      : 'bg-[#090D16]/60 border-slate-800/80 hover:border-slate-700 hover:bg-slate-900/40'
+                      ? 'bg-[#221025] border-teal-500/80 shadow-lg shadow-teal-950/40 ring-1 ring-teal-500/50'
+                      : 'bg-[#0E0810]/70 border-[#26152B] hover:border-burgundy-800/80 hover:bg-[#1A101E]'
                   }`}
                 >
                   <div className="flex items-start justify-between gap-2 mb-2">
                     <div>
-                      <h4 className="font-semibold text-sm text-slate-100 group-hover:text-cyan-300 transition">
+                      <h4 className="font-semibold text-sm text-cream-100 group-hover:text-teal-300 transition">
                         {sample.name}
                       </h4>
-                      <p className="text-[11px] text-slate-400 font-sans">{sample.subtitle}</p>
+                      <p className="text-[11px] text-cream-400/80 font-sans mt-0.5">{sample.subtitle}</p>
                     </div>
-                    {isSelected && (
-                      <CheckCircle2 className="w-4 h-4 text-cyan-400 shrink-0" />
+                    {isSelected ? (
+                      <CheckCircle2 className="w-4 h-4 text-teal-400 shrink-0" />
+                    ) : (
+                      <span className="w-2 h-2 rounded-full bg-burgundy-800 group-hover:bg-teal-500 transition shrink-0 mt-1"></span>
                     )}
                   </div>
-                  <p className="text-xs text-slate-400 line-clamp-2 mb-3">
+                  <p className="text-xs text-cream-300/70 line-clamp-2 mb-3.5 leading-relaxed font-sans">
                     {sample.description}
                   </p>
-                  <div className="flex items-center justify-between text-[11px] text-slate-400 border-t border-slate-800/60 pt-2.5">
-                    <span className="px-2 py-0.5 rounded bg-slate-900 text-slate-400 text-[10px] font-mono">
+                  <div className="flex items-center justify-between text-[11px] text-cream-400 border-t border-[#26152B] pt-2.5 font-mono">
+                    <span className="px-2 py-0.5 rounded bg-[#180F1D] text-cream-400 text-[10px] border border-[#2E1A33]">
                       {sample.category}
                     </span>
-                    <span className="text-cyan-400/90 font-medium group-hover:translate-x-0.5 transition inline-flex items-center gap-1">
+                    <span className="text-teal-300 font-medium group-hover:translate-x-0.5 transition inline-flex items-center gap-1 text-[11px]">
                       {isSelected ? 'Currently Loaded' : 'Load Policy →'}
                     </span>
                   </div>
@@ -221,52 +222,50 @@ export const PolicyInputBar: React.FC<PolicyInputBarProps> = ({
 
       {/* Tab 2: Paste Custom Policy */}
       {activeTab === 'paste' && (
-        <form onSubmit={handleCustomSubmit} className="space-y-3">
+        <form onSubmit={handleCustomSubmit} className="space-y-3.5">
           <div className="flex flex-col sm:flex-row gap-3">
             <input
               type="text"
-              placeholder="Policy / App Name (e.g. Uber, Blinkit, TikTok, Reddit)"
+              placeholder="Application or Service Name (e.g. Uber, Blinkit, TikTok, Reddit, Instagram)"
               value={customTitle}
               onChange={(e) => setCustomTitle(e.target.value)}
-              className="bg-[#090D16] border border-slate-800 rounded-xl px-4 py-2 text-xs text-slate-100 placeholder:text-slate-600 focus:outline-none focus:border-cyan-500/60 flex-1 font-sans"
+              className="bg-[#0A060C] border border-[#2E1B33] rounded-xl px-4 py-2 text-xs text-cream-100 placeholder:text-cream-600 focus:outline-none focus:border-teal-500/70 flex-1 font-sans"
             />
-            <div className="flex items-center gap-2 text-xs font-mono text-slate-500">
-              <span>{wordCount} words</span>
+            <div className="flex items-center gap-2 text-xs font-mono text-cream-400 bg-[#0E0810] px-3 py-1.5 rounded-xl border border-[#26152B]">
+              <span className="text-teal-300 font-semibold">{wordCount}</span> words
               <span>•</span>
-              <span>{customText.length} characters</span>
+              <span>{customText.length.toLocaleString()}</span> chars
             </div>
           </div>
 
           <textarea
             rows={5}
-            placeholder="Paste complete or partial privacy policy text here... DataTrail will parse clauses, extract exact quotes, identify vague hedges, and construct the 4-stage Collect → Use → Share → Keep trail."
+            placeholder="Paste complete or excerpted privacy policy text here... DataTrail will parse clauses, extract exact verbatim quotes, evaluate vague qualifiers, and construct the interactive 4-stage Collect → Use → Share → Keep trail."
             value={customText}
             onChange={(e) => setCustomText(e.target.value)}
-            className="w-full bg-[#090D16] border border-slate-800 rounded-xl p-3.5 text-xs text-slate-200 placeholder:text-slate-600 focus:outline-none focus:border-cyan-500/60 font-mono resize-y"
+            className="w-full bg-[#0A060C] border border-[#2E1B33] rounded-2xl p-4 text-xs text-cream-200 placeholder:text-cream-600 focus:outline-none focus:border-teal-500/70 font-mono resize-y leading-relaxed"
           ></textarea>
 
           <div className="flex items-center justify-between pt-1">
-            <div className="flex items-center gap-2">
-              <button
-                type="button"
-                onClick={() => {
-                  setCustomText(SAMPLE_POLICIES[0].text);
-                  setCustomTitle(SAMPLE_POLICIES[0].name);
-                }}
-                className="text-[11px] text-cyan-400 hover:text-cyan-300 underline flex items-center gap-1"
-              >
-                <RotateCcw className="w-3 h-3" />
-                Fill with Swiggy text for testing
-              </button>
-            </div>
+            <button
+              type="button"
+              onClick={() => {
+                setCustomText(SAMPLE_POLICIES[0].text);
+                setCustomTitle(SAMPLE_POLICIES[0].name);
+              }}
+              className="text-[11px] text-teal-400 hover:text-teal-300 underline flex items-center gap-1 font-mono"
+            >
+              <RotateCcw className="w-3 h-3" />
+              Fill with Swiggy text for testing
+            </button>
 
             <button
               type="submit"
-              disabled={isAnalyzing || wordCount < 30}
-              className={`px-5 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 shadow-lg ${
-                wordCount < 30
-                  ? 'bg-slate-800 text-slate-500 cursor-not-allowed'
-                  : 'bg-cyan-500 hover:bg-cyan-400 text-slate-950 shadow-cyan-500/25'
+              disabled={isAnalyzing || wordCount < 10}
+              className={`px-5 py-2.5 rounded-xl text-xs font-bold transition flex items-center gap-2 shadow-lg ${
+                wordCount < 10
+                  ? 'bg-[#1C1220] text-cream-600 cursor-not-allowed border border-[#26152B]'
+                  : 'bg-gradient-to-r from-teal-500 to-teal-400 hover:from-teal-400 hover:to-teal-300 text-slate-950 shadow-teal-500/20'
               }`}
             >
               <Search className="w-3.5 h-3.5" />
@@ -278,13 +277,13 @@ export const PolicyInputBar: React.FC<PolicyInputBarProps> = ({
 
       {/* Tab 3: Upload Text File */}
       {activeTab === 'upload' && (
-        <div className="border-2 border-dashed border-slate-800 rounded-xl p-8 text-center bg-[#090D16]/40 hover:border-cyan-500/50 transition">
-          <Upload className="w-8 h-8 text-cyan-400 mx-auto mb-3 opacity-80" />
-          <h4 className="text-sm font-semibold text-slate-200 mb-1">Upload Digital Privacy Policy</h4>
-          <p className="text-xs text-slate-400 mb-4 max-w-md mx-auto">
-            Select a raw <code className="text-cyan-300 font-mono">.txt</code> file containing a real privacy policy. (Per hackathon scope, scanned image PDFs require OCR and are explicitly cut from v1).
+        <div className="border-2 border-dashed border-[#2E1B33] rounded-2xl p-8 text-center bg-[#0E0810]/50 hover:border-teal-500/60 transition">
+          <Upload className="w-8 h-8 text-teal-400 mx-auto mb-3 opacity-90" />
+          <h4 className="text-sm font-semibold text-cream-100 mb-1">Upload Digital Privacy Policy</h4>
+          <p className="text-xs text-cream-400 max-w-md mx-auto mb-4 font-sans leading-relaxed">
+            Select a raw <code className="text-teal-300 font-mono">.txt</code> file containing an authentic privacy policy. (Per hackathon scope, scanned image PDFs require OCR and are explicitly cut from v1).
           </p>
-          <label className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold cursor-pointer border border-slate-700 transition">
+          <label className="inline-flex items-center gap-2 px-5 py-2 rounded-xl bg-burgundy-900 hover:bg-burgundy-800 text-cream-100 text-xs font-semibold cursor-pointer border border-burgundy-700 transition">
             <span>Select .txt File</span>
             <input
               type="file"
@@ -298,9 +297,9 @@ export const PolicyInputBar: React.FC<PolicyInputBarProps> = ({
 
       {/* Tab 4: Fetch URL */}
       {activeTab === 'url' && (
-        <form onSubmit={handleUrlFetch} className="space-y-3">
-          <div className="text-xs text-slate-400">
-            Enter a direct privacy policy URL. <em>Note:</em> Many commercial websites enforce CORS headers or anti-bot Cloudflare screens that block browser-based web fetches. DataTrail reports network blocks honestly.
+        <form onSubmit={handleUrlFetch} className="space-y-3.5">
+          <div className="text-xs text-cream-400/90 leading-relaxed font-sans">
+            Enter a direct privacy policy URL. <em>Note:</em> Many commercial websites enforce CORS headers or anti-bot Cloudflare screens that block browser-based web fetches. DataTrail reports network blocks honestly and provides instant paste fallback.
           </div>
           <div className="flex gap-2">
             <input
@@ -308,12 +307,12 @@ export const PolicyInputBar: React.FC<PolicyInputBarProps> = ({
               placeholder="https://example.com/privacy-policy"
               value={urlInput}
               onChange={(e) => setUrlInput(e.target.value)}
-              className="bg-[#090D16] border border-slate-800 rounded-xl px-4 py-2 text-xs text-slate-100 placeholder:text-slate-600 focus:outline-none focus:border-cyan-500/60 flex-1 font-mono"
+              className="bg-[#0A060C] border border-[#2E1B33] rounded-xl px-4 py-2 text-xs text-cream-100 placeholder:text-cream-600 focus:outline-none focus:border-teal-500/70 flex-1 font-mono"
             />
             <button
               type="submit"
               disabled={isFetchingUrl || !urlInput.trim()}
-              className="px-4 py-2 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 text-xs font-bold transition flex items-center gap-2 disabled:opacity-50"
+              className="px-5 py-2 rounded-xl bg-gradient-to-r from-teal-500 to-teal-400 hover:from-teal-400 hover:to-teal-300 text-slate-950 text-xs font-bold transition flex items-center gap-2 disabled:opacity-50 shadow-md shadow-teal-500/20"
             >
               <Globe className="w-3.5 h-3.5" />
               <span>{isFetchingUrl ? 'Fetching...' : 'Fetch & Analyze'}</span>
@@ -321,11 +320,11 @@ export const PolicyInputBar: React.FC<PolicyInputBarProps> = ({
           </div>
 
           {urlError && (
-            <div className="p-3 rounded-xl bg-rose-950/40 border border-rose-800/50 text-xs text-rose-300 flex items-start gap-2.5">
-              <AlertTriangle className="w-4 h-4 text-rose-400 shrink-0 mt-0.5" />
+            <div className="p-3.5 rounded-xl bg-[#2D0D19] border border-burgundy-700/60 text-xs text-cream-200 flex items-start gap-2.5 font-sans">
+              <AlertTriangle className="w-4 h-4 text-burgundy-400 shrink-0 mt-0.5" />
               <div>
-                <p className="font-semibold mb-1">Network & Fetch Limitation</p>
-                <p className="text-rose-200/80 leading-relaxed">{urlError}</p>
+                <p className="font-semibold text-cream-100 mb-1">Network & Fetch Limitation</p>
+                <p className="text-cream-300/80 leading-relaxed">{urlError}</p>
               </div>
             </div>
           )}

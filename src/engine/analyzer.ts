@@ -24,6 +24,12 @@ export class PolicyAnalyzerEngine {
 
     // 2. Discover personal data categories present in the text
     const discoveredCategories = this.discoverCategories(sentences, rawText);
+    const isValidPolicy = discoveredCategories.length > 0 && wordCount >= 30;
+    const emptyReason = !isValidPolicy
+      ? (wordCount < 30
+          ? 'The submitted text is too brief to represent a privacy policy (< 30 words).'
+          : 'No personal data categories or privacy clauses (such as location, identifiers, contacts, transactions, or communications) could be identified in the submitted text.')
+      : undefined;
 
     // 3. Build 4-stage data trails for each category
     const discoveredDataTypes = discoveredCategories.map(cat =>
@@ -39,6 +45,8 @@ export class PolicyAnalyzerEngine {
       paragraphCount: paragraphs.length,
       sentenceCount: sentences.length,
       analyzedAt: new Date().toISOString(),
+      isValidPolicy,
+      emptyReason,
       discoveredDataTypes,
       rightsAndContacts,
       hedgesDetected,
@@ -84,11 +92,6 @@ export class PolicyAnalyzerEngine {
       if (matchCount > 0) {
         matched.push(cat);
       }
-    }
-
-    // Fallback: If minimal match, return at least the first 2 common categories so the user has an explorable trail
-    if (matched.length === 0) {
-      matched.push(CATEGORY_DEFINITIONS[0], CATEGORY_DEFINITIONS[2]);
     }
 
     return matched;
